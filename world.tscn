@@ -21,7 +21,6 @@ __meta__ = {
 }
 
 [node name="spawn_points" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="0" type="Position2D" parent="spawn_points"]
 position = Vector2( 72, 72 )
@@ -304,5 +303,4 @@ size_flags_horizontal = 2
 size_flags_vertical = 2
 custom_fonts/font = SubResource( 1 )
 text = "EXIT GAME"
-
 [connection signal="pressed" from="winner/exit_game" to="score" method="_on_exit_game_pressed"]

@@ -48,4 +48,3 @@ shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/explode = SubResource( 2 )
-
