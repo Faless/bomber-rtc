@@ -20,6 +20,7 @@ run/main_scene="res://lobby.tscn"
 
 [autoload]
 
+Client="*res://signaling/client/multiplayer_client.gd"
 gamestate="*res://gamestate.gd"
 
 [debug]

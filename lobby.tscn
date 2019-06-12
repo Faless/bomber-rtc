@@ -8,6 +8,9 @@ anchor_bottom = 1.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="players" type="Panel" parent="."]
 visible = false
@@ -18,11 +21,29 @@ margin_bottom = 468.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 
-[node name="label" type="Label" parent="players"]
+[node name="lobby_label" type="Label" parent="players"]
 margin_left = 26.0
 margin_top = 18.0
-margin_right = 142.0
+margin_right = 72.0
 margin_bottom = 32.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+text = "Lobby:"
+
+[node name="lobby" type="LineEdit" parent="players"]
+margin_left = 80.0
+margin_top = 12.0
+margin_right = 228.0
+margin_bottom = 36.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+editable = false
+
+[node name="label" type="Label" parent="players"]
+margin_left = 26.0
+margin_top = 40.0
+margin_right = 142.0
+margin_bottom = 54.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 text = "Awaiting Players..."
@@ -38,7 +59,7 @@ text = "START!"
 
 [node name="list" type="ItemList" parent="players"]
 margin_left = 25.0
-margin_top = 37.0
+margin_top = 60.0
 margin_right = 229.0
 margin_bottom = 296.0
 size_flags_horizontal = 2
@@ -48,7 +69,7 @@ size_flags_vertical = 2
 margin_left = 370.0
 margin_top = 157.0
 margin_right = 647.0
-margin_bottom = 324.0
+margin_bottom = 357.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 
@@ -73,11 +94,11 @@ text = "The Warrior"
 [node name="ip_label" type="Label" parent="connect"]
 margin_left = 15.0
 margin_top = 66.0
-margin_right = 57.0
+margin_right = 119.0
 margin_bottom = 80.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
-text = "IP:"
+text = "Signaling Server:"
 
 [node name="ip" type="LineEdit" parent="connect"]
 margin_left = 17.0
@@ -86,7 +107,10 @@ margin_right = 173.0
 margin_bottom = 109.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-text = "127.0.0.1"
+text = "ws://localhost:9080"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="host" type="Button" parent="connect"]
 margin_left = 181.0
@@ -108,13 +132,22 @@ text = "Join"
 
 [node name="error_label" type="Label" parent="connect"]
 margin_left = 15.0
-margin_top = 125.0
+margin_top = 170.0
 margin_right = 257.0
-margin_bottom = 139.0
+margin_bottom = 184.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 custom_colors/font_color = Color( 0.820312, 0.291595, 0.291595, 1 )
 align = 1
+
+[node name="lobby" type="LineEdit" parent="connect"]
+margin_left = 17.0
+margin_top = 125.0
+margin_right = 173.0
+margin_bottom = 149.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+placeholder_text = "Lobby secret"
 
 [node name="error" type="AcceptDialog" parent="."]
 margin_right = 55.0

@@ -5,8 +5,18 @@ func _ready():
 	gamestate.connect("connection_failed", self, "_on_connection_failed")
 	gamestate.connect("connection_succeeded", self, "_on_connection_success")
 	gamestate.connect("player_list_changed", self, "refresh_lobby")
+	gamestate.connect("lobby_joined", self, "_update_lobby")
 	gamestate.connect("game_ended", self, "_on_game_ended")
 	gamestate.connect("game_error", self, "_on_game_error")
+	if OS.get_name() == 'HTML5':
+		var data = JavaScript.eval("(new URLSearchParams(window.location.hash.replace('#', '', 1))).get('lobby')")
+		if typeof(data) == TYPE_STRING:
+			$connect/lobby.text = data
+
+func _update_lobby(text):
+	if OS.get_name() == 'HTML5':
+		JavaScript.eval("var x = new URLSearchParams(window.location.hash.replace('#', '', 1)); x.set('lobby', '" + text + "'); window.location.hash = x.toString()")
+	$players/lobby.text = text
 
 func _on_host_pressed():
 	if get_node("connect/name").text == "":
@@ -18,8 +28,9 @@ func _on_host_pressed():
 	get_node("connect/error_label").text = ""
 
 	var player_name = get_node("connect/name").text
-	gamestate.host_game(player_name)
-	refresh_lobby()
+	var ip = get_node("connect/ip").text
+	gamestate.host_game(player_name, ip)
+	# refresh_lobby() gets called by the player_list_changed signal, emitted when host is ready
 
 func _on_join_pressed():
 	if get_node("connect/name").text == "":
@@ -27,16 +38,16 @@ func _on_join_pressed():
 		return
 
 	var ip = get_node("connect/ip").text
-	if not ip.is_valid_ip_address():
-		get_node("connect/error_label").text = "Invalid IPv4 address!"
+	var lobby = get_node("connect/lobby").text
+	if lobby == '':
+		get_node("connect/error_label").text = "Must specify a lobby when joining!"
 		return
-
 	get_node("connect/error_label").text=""
 	get_node("connect/host").disabled = true
 	get_node("connect/join").disabled = true
 
 	var player_name = get_node("connect/name").text
-	gamestate.join_game(ip, player_name)
+	gamestate.join_game(ip, player_name, lobby)
 	# refresh_lobby() gets called by the player_list_changed signal
 
 func _on_connection_success():
@@ -53,6 +64,11 @@ func _on_game_ended():
 	get_node("connect").show()
 	get_node("players").hide()
 	get_node("connect/host").disabled = false
+	get_node("connect/join").disabled = false
+	if OS.get_name() == 'HTML5':
+		JavaScript.eval("var x = new URLSearchParams(window.location.hash.replace('#', '', 1)); x.delete('lobby'); window.location.hash = x.toString()")
+	$players/lobby.text = ''
+	$connect/lobby.text = ''
 
 func _on_game_error(errtxt):
 	get_node("error").dialog_text = errtxt
