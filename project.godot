@@ -22,6 +22,7 @@ run/main_scene="res://lobby.tscn"
 
 Client="*res://signaling/client/multiplayer_client.gd"
 gamestate="*res://gamestate.gd"
+Server="*res://signaling/server/ws_webrtc_server.gd"
 
 [debug]
 

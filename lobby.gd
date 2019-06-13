@@ -1,6 +1,8 @@
 extends Control
 
 func _ready():
+	if OS.get_name() == 'HTML5':
+		$connect/server.hide()
 	# Called every time the node is added to the scene.
 	gamestate.connect("connection_failed", self, "_on_connection_failed")
 	gamestate.connect("connection_succeeded", self, "_on_connection_success")
@@ -86,3 +88,11 @@ func refresh_lobby():
 
 func _on_start_pressed():
 	gamestate.begin_game()
+
+func _on_server_toggled(button_pressed):
+	if button_pressed:
+		Server.listen(9080)
+		$connect/server.text = "Stop"
+	else:
+		Server.stop()
+		$connect/server.text = "Listen"
