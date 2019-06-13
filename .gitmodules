@@ -1,0 +1,3 @@
+[submodule "signaling"]
+	path = signaling
+	url = https://github.com/Faless/gd-webrtc-signalling
